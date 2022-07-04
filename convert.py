@@ -15,8 +15,10 @@ def convert():
   Info_indvlPK = []
   Info_actvAGReg = []
   Info_link = []
+  
   OthrNm_lastNm = []
   OthrNm_firstNm = []
+  
   CrntEmp_orgNm = []
   CrntEmp_orgPK = []
   CrntEmp_str1 = []
@@ -24,15 +26,28 @@ def convert():
   CrntEmp_state = []
   CrntEmp_cntry = []
   CrntEmp_postlCd = []
+  
   CrntRgstn_regAuth = []
   CrntRgstn_regCat = []
   CrntRgstn_st = []
   CrntRgstn_stDt = []
+  
   BrnchOfLoc_str1 = []
   BrnchOfLoc_city = []
   BrnchOfLoc_state = []
   BrnchOfLoc_cntry = []
   BrnchOfLoc_postlCd = []
+
+  Exm_exmCd = []
+  Exm_exmNm = []
+  Exm_exmDt = []
+
+  Dsgntn_dsgntnNm = []
+
+  PrevRgstn_orgNm = []
+  PrevRgstn_orgPK = []
+  PrevRgstn_regBeginDt = []
+  PrevRgstn_regEndDt = []
 
   # CrntRgstn variables
   regAuth_all = ''
@@ -46,6 +61,17 @@ def convert():
   state_all = ''
   cntry_all = ''
   postlCd_all = ''
+
+  # Exm variables
+  exmCd_all = ''
+  exmNm_all = ''
+  exmDt_all = ''
+
+  # PrevRgstn variables
+  orgNm_all = ''
+  orgPK_all = ''
+  regBeginDt_all = ''
+  regEndDt_all = ''
 
   tree=Xet.parse( 'sample.xml' )
   root=tree.getroot()
@@ -144,64 +170,163 @@ def convert():
       # Loop for CrntEmp child nodes
       CrntEmp = list(child)
 
-      for CrntEmp_child in CrntEmp:
+      if len(CrntEmp) != 0:
 
-        CrntEmp_child_nodes = list(CrntEmp_child)
+        for CrntEmp_child in CrntEmp:
 
-        for nodes in CrntEmp_child_nodes:
+          CrntEmp_child_nodes = list(CrntEmp_child)
 
-          keys = nodes.attrib.keys()
+          for nodes in CrntEmp_child_nodes:
 
-          print(f'keys - {keys}')
-       
-          if len(keys) != 0:
-            for k in keys:
-              if k == 'regAuth':
-                regAuth_all += nodes.attrib[k] + ','
-                print(f'{k}: {nodes.attrib[k]}\n')
+            keys = nodes.attrib.keys()
+        
+            if len(keys) != 0:
+              for k in keys:
+                if k == 'regAuth':
+                  regAuth_all += nodes.attrib[k] + ','
+                  print(f'{k}: {nodes.attrib[k]}\n')
 
-              elif k == 'regCat':
-                regCat_all += nodes.attrib[k] + ','
-                print(f'{k}: {nodes.attrib[k]}\n')
+                elif k == 'regCat':
+                  regCat_all += nodes.attrib[k] + ','
+                  print(f'{k}: {nodes.attrib[k]}\n')
 
-              elif k == 'st':
-                st_all += nodes.attrib[k] + ','
-                print(f'{k}: {nodes.attrib[k]}\n')
+                elif k == 'st':
+                  st_all += nodes.attrib[k] + ','
+                  print(f'{k}: {nodes.attrib[k]}\n')
 
-              elif k == 'stDt':
-                stDt_all += nodes.attrib[k] + ','
-                print(f'{k}: {nodes.attrib[k]}\n')
+                elif k == 'stDt':
+                  stDt_all += nodes.attrib[k] + ','
+                  print(f'{k}: {nodes.attrib[k]}\n')
 
-              elif k == 'str1':
-                str1_all += nodes.attrib[k] + ','
-                print(f'{k}: {nodes.attrib[k]}\n')
+                elif k == 'str1':
+                  str1_all += nodes.attrib[k] + ','
+                  print(f'{k}: {nodes.attrib[k]}\n')
 
-              elif k == 'city':
-                city_all += nodes.attrib[k] + ','
-                print(f'{k}: {nodes.attrib[k]}\n')
+                elif k == 'city':
+                  city_all += nodes.attrib[k] + ','
+                  print(f'{k}: {nodes.attrib[k]}\n')
 
-              elif k == 'state':
-                state_all += nodes.attrib[k] + ','
-                print(f'{k}: {nodes.attrib[k]}\n')
+                elif k == 'state':
+                  state_all += nodes.attrib[k] + ','
+                  print(f'{k}: {nodes.attrib[k]}\n')
 
-              elif k == 'cntry':
-                cntry_all += nodes.attrib[k] + ','
-                print(f'{k}: {nodes.attrib[k]}\n')
+                elif k == 'cntry':
+                  cntry_all += nodes.attrib[k] + ','
+                  print(f'{k}: {nodes.attrib[k]}\n')
 
-              elif k == 'postlCd':
-                postlCd_all += nodes.attrib[k] + ','
-                print(f'{k}: {nodes.attrib[k]}\n')
+                elif k == 'postlCd':
+                  postlCd_all += nodes.attrib[k] + ','
+                  print(f'{k}: {nodes.attrib[k]}\n')
 
-      CrntRgstn_regAuth.append(regAuth_all)
-      CrntRgstn_regCat.append(regCat_all)
-      CrntRgstn_st.append(st_all)
-      CrntRgstn_stDt.append(stDt_all)
+        CrntRgstn_regAuth.append(regAuth_all)
+        CrntRgstn_regCat.append(regCat_all)
+        CrntRgstn_st.append(st_all)
+        CrntRgstn_stDt.append(stDt_all)
 
-      BrnchOfLoc_str1.append(str1_all)
-      BrnchOfLoc_city.append(city_all)
-      BrnchOfLoc_state.append(state_all)
-      BrnchOfLoc_cntry.append(cntry_all)
-      BrnchOfLoc_postlCd.append(postlCd_all)
+        BrnchOfLoc_str1.append(str1_all)
+        BrnchOfLoc_city.append(city_all)
+        BrnchOfLoc_state.append(state_all)
+        BrnchOfLoc_cntry.append(cntry_all)
+        BrnchOfLoc_postlCd.append(postlCd_all)
+      
+      else:
+        CrntRgstn_regAuth.append('None')
+        CrntRgstn_regCat.append('None')
+        CrntRgstn_st.append('None')
+        CrntRgstn_stDt.append('None')
+
+        BrnchOfLoc_str1.append('None')
+        BrnchOfLoc_city.append('None')
+        BrnchOfLoc_state.append('None')
+        BrnchOfLoc_cntry.append('None')
+        BrnchOfLoc_postlCd.append('None')
+
+    # Loop for Exms Tag
+    Exms = list(Indvl_child[3])
+
+    if len(Exms) != 0:
+
+      for child in Exms:
+        
+        keys = child.attrib.keys()
+        
+        if len(keys) != 0:
+          for k in keys:
+            if k == 'exmCd':
+              exmCd_all += child.attrib[k] + ','
+              print(f'{k}: {child.attrib[k]}\n')
+
+            elif k == 'exmNm':
+              exmNm_all += child.attrib[k] + ','
+              print(f'{k}: {child.attrib[k]}\n')
+
+            elif k == 'exmDt':
+              exmDt_all += child.attrib[k] + ','
+              print(f'{k}: {child.attrib[k]}\n')
+
+      Exm_exmCd.append(exmCd_all)
+      Exm_exmNm.append(exmNm_all)
+      Exm_exmDt.append(exmDt_all)
+
+    else:
+      Exm_exmCd.append('None')
+      Exm_exmNm.append('None')
+      Exm_exmDt.append('None')
+
+    # Loop for Dsgntn Tag
+    Dsgntn = list(Indvl_child[4])
+    
+    if len(Dsgntn) != 0:
+      for child in Dsgntn:
+        
+        keys = child.attrib.keys()
+        
+        if len(keys) != 0:
+          for k in keys:
+            if k == 'dsgntnNm':
+              Dsgntn_dsgntnNm.append(child.attrib[k] if (child.attrib[k] is not None) or (child.attrib[k] != ' ') else 'None')
+              print(f'{k}: {child.attrib[k]}\n')
+    else:
+      Dsgntn_dsgntnNm.append('None')
+    
+    # Loop for PrevRgstns Tag
+    PrevRgstns = list(Indvl_child[5])
+
+    if len(PrevRgstns) != 0:
+      
+      for child in PrevRgstns:
+        
+        keys = child.attrib.keys()
+        
+        if len(keys) != 0:
+          for k in keys:
+            if k == 'orgNm':
+              orgNm_all += child.attrib[k] + ','
+              print(f'{k}: {child.attrib[k]}\n')
+
+            elif k == 'orgPK':
+              orgPK_all += child.attrib[k] + ','
+              print(f'{k}: {child.attrib[k]}\n')
+
+            elif k == 'regBeginDt':
+              regBeginDt_all += child.attrib[k] + ','
+              print(f'{k}: {child.attrib[k]}\n')
+
+            elif k == 'regEndDt':
+              regEndDt_all += child.attrib[k] + ','
+              print(f'{k}: {child.attrib[k]}\n')
+
+      PrevRgstn_orgNm.append(orgNm_all)
+      PrevRgstn_orgPK.append(orgPK_all)
+      PrevRgstn_regBeginDt.append(regBeginDt_all)
+      PrevRgstn_regEndDt.append(regEndDt_all)
+
+    else:
+      PrevRgstn_orgNm.append('None')
+      PrevRgstn_orgPK.append('None')
+      PrevRgstn_regBeginDt.append('None')
+      PrevRgstn_regEndDt.append('None')
+
 
   time_end = datetime.datetime.now().replace(microsecond=0)
   runtime = time_end - time_start
@@ -211,7 +336,7 @@ def convert():
   now = datetime.datetime.now().strftime('%Y%m%d-%Hh%M')
   print('Saving to a CSV file...')
 
-  data = {'lastNm': Info_lastNm, 'firstNm': Info_firstNm, 'midNm': Info_midNm, 'indvlPK': Info_indvlPK, 'actvAGReg': Info_actvAGReg, 'link': Info_link, 'OthrNm lastNm': OthrNm_lastNm, 'OthrNm firstNm': OthrNm_firstNm, 'CrntEmp orgNm': CrntEmp_orgNm, 'CrntEmp orgPK': CrntEmp_orgPK, 'CrntEmp str1': CrntEmp_str1, 'CrntEmp city': CrntEmp_city, 'CrntEmp state': CrntEmp_state, 'CrntEmp cntry': CrntEmp_cntry, 'CrntEmp postlCd': CrntEmp_postlCd, 'CrntRgstn regAuth': CrntRgstn_regAuth, 'CrntRgstn regCat': CrntRgstn_regCat, 'CrntRgstn st': CrntRgstn_st, 'CrntRgstn stDt': CrntRgstn_stDt, 'BrnchOfLoc str1': BrnchOfLoc_str1, 'BrnchOfLoc city': BrnchOfLoc_city, 'BrnchOfLoc state': BrnchOfLoc_state, 'BrnchOfLoc cntry': BrnchOfLoc_cntry, 'BrnchOfLoc postlCd': BrnchOfLoc_postlCd}
+  data = {'lastNm': Info_lastNm, 'firstNm': Info_firstNm, 'midNm': Info_midNm, 'indvlPK': Info_indvlPK, 'actvAGReg': Info_actvAGReg, 'link': Info_link, 'OthrNm lastNm': OthrNm_lastNm, 'OthrNm firstNm': OthrNm_firstNm, 'CrntEmp orgNm': CrntEmp_orgNm, 'CrntEmp orgPK': CrntEmp_orgPK, 'CrntEmp str1': CrntEmp_str1, 'CrntEmp city': CrntEmp_city, 'CrntEmp state': CrntEmp_state, 'CrntEmp cntry': CrntEmp_cntry, 'CrntEmp postlCd': CrntEmp_postlCd, 'CrntRgstn regAuth': CrntRgstn_regAuth, 'CrntRgstn regCat': CrntRgstn_regCat, 'CrntRgstn st': CrntRgstn_st, 'CrntRgstn stDt': CrntRgstn_stDt, 'BrnchOfLoc str1': BrnchOfLoc_str1, 'BrnchOfLoc city': BrnchOfLoc_city, 'BrnchOfLoc state': BrnchOfLoc_state, 'BrnchOfLoc cntry': BrnchOfLoc_cntry, 'BrnchOfLoc postlCd': BrnchOfLoc_postlCd, 'exmCd': Exm_exmCd, 'exmNm': Exm_exmNm, 'exmDt': Exm_exmDt, 'dsgntnNm': Dsgntn_dsgntnNm, 'PrevRgstn_orgNm': PrevRgstn_orgNm, 'PrevRgstn orgPK': PrevRgstn_orgPK, 'PrevRgstn regBeginDt': PrevRgstn_regBeginDt, 'PrevRgstn regEndDt': PrevRgstn_regEndDt}
 
   df=pd.DataFrame(data=data)
   df.index+=1
