@@ -329,7 +329,6 @@ def convert():
         for item in node:
 
           keys = item.attrib.keys()
-          print(keys)
 
           for k in keys:
             if k == 'regAuth':
@@ -437,6 +436,9 @@ def convert():
 
     # Loop for Dsgntn Tag
     Dsgntn = list(Indvl_child[4])
+
+    # Dsgntn variable
+    dsgntnNm_all = ''
     
     if len(Dsgntn) != 0:
       for child in Dsgntn:
@@ -446,10 +448,14 @@ def convert():
         if len(keys) != 0:
           for k in keys:
             if k == 'dsgntnNm':
-              Dsgntn_dsgntnNm.append(child.attrib[k] if (child.attrib[k] is not None) or (child.attrib[k] != ' ') else 'None')
+              dsgntnNm_all += child.attrib[k] + ',\n'
               #print(f'{k}: {child.attrib[k]}\n')
+              
+      Dsgntn_dsgntnNm.append(dsgntnNm_all)
+      
     else:
       Dsgntn_dsgntnNm.append('None')
+      #print(f'dsgntnNm: None\n')
     
     # Loop for PrevRgstns Tag
     PrevRgstns = list(Indvl_child[5])
@@ -512,7 +518,6 @@ def convert():
                   elif k == 'state':
                     state_all += item.attrib[k] + ',\n'
                     #print(f'{k}: {item.attrib[k]}\n')
-
         else:
           PrevRgstn_branchloc_city.append('None')
           PrevRgstn_branchloc_state.append('None')
@@ -530,6 +535,9 @@ def convert():
       PrevRgstn_orgPK.append('None')
       PrevRgstn_regBeginDt.append('None')
       PrevRgstn_regEndDt.append('None')
+
+      PrevRgstn_branchloc_city.append('None')
+      PrevRgstn_branchloc_state.append('None')
   
     # Loop for PrevRgstns Tag
     EmpHss = list(Indvl_child[6])
