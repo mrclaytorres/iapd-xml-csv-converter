@@ -52,6 +52,12 @@ def convert():
   PrevRgstn_branchloc_city = []
   PrevRgstn_branchloc_state = []
 
+  EmpHs_fromDt = []
+  EmpHs_toDt = []
+  EmpHs_orgNm = []
+  EmpHs_city = []
+  EmpHs_state = []
+
   # CrntRgstn variables
   regAuth_all = ''
   regCat_all = ''
@@ -79,6 +85,13 @@ def convert():
   # PrevRgstn BrnchOfLoc variables
   city_all = ''
   state_all = ''
+
+  # EmpHs variables
+  EmpHs_fromDt_all = ''
+  EmpHs_toDt_all = ''
+  EmpHs_orgNm_all = ''
+  EmpHs_city_all = ''
+  EmpHs_state_all = ''
 
   tree=Xet.parse( 'sample.xml' )
   root=tree.getroot()
@@ -190,39 +203,39 @@ def convert():
             if len(keys) != 0:
               for k in keys:
                 if k == 'regAuth':
-                  regAuth_all += nodes.attrib[k] + ','
+                  regAuth_all += nodes.attrib[k] + ',\n'
                   print(f'{k}: {nodes.attrib[k]}\n')
 
                 elif k == 'regCat':
-                  regCat_all += nodes.attrib[k] + ','
+                  regCat_all += nodes.attrib[k] + ',\n'
                   print(f'{k}: {nodes.attrib[k]}\n')
 
                 elif k == 'st':
-                  st_all += nodes.attrib[k] + ','
+                  st_all += nodes.attrib[k] + ',\n'
                   print(f'{k}: {nodes.attrib[k]}\n')
 
                 elif k == 'stDt':
-                  stDt_all += nodes.attrib[k] + ','
+                  stDt_all += nodes.attrib[k] + ',\n'
                   print(f'{k}: {nodes.attrib[k]}\n')
 
                 elif k == 'str1':
-                  str1_all += nodes.attrib[k] + ','
+                  str1_all += nodes.attrib[k] + ',\n'
                   print(f'{k}: {nodes.attrib[k]}\n')
 
                 elif k == 'city':
-                  city_all += nodes.attrib[k] + ','
+                  city_all += nodes.attrib[k] + ',\n'
                   print(f'{k}: {nodes.attrib[k]}\n')
 
                 elif k == 'state':
-                  state_all += nodes.attrib[k] + ','
+                  state_all += nodes.attrib[k] + ',\n'
                   print(f'{k}: {nodes.attrib[k]}\n')
 
                 elif k == 'cntry':
-                  cntry_all += nodes.attrib[k] + ','
+                  cntry_all += nodes.attrib[k] + ',\n'
                   print(f'{k}: {nodes.attrib[k]}\n')
 
                 elif k == 'postlCd':
-                  postlCd_all += nodes.attrib[k] + ','
+                  postlCd_all += nodes.attrib[k] + ',\n'
                   print(f'{k}: {nodes.attrib[k]}\n')
 
         CrntRgstn_regAuth.append(regAuth_all)
@@ -260,15 +273,15 @@ def convert():
         if len(keys) != 0:
           for k in keys:
             if k == 'exmCd':
-              exmCd_all += child.attrib[k] + ','
+              exmCd_all += child.attrib[k] + ',\n'
               print(f'{k}: {child.attrib[k]}\n')
 
             elif k == 'exmNm':
-              exmNm_all += child.attrib[k] + ','
+              exmNm_all += child.attrib[k] + ',\n'
               print(f'{k}: {child.attrib[k]}\n')
 
             elif k == 'exmDt':
-              exmDt_all += child.attrib[k] + ','
+              exmDt_all += child.attrib[k] + ',\n'
               print(f'{k}: {child.attrib[k]}\n')
 
       Exm_exmCd.append(exmCd_all)
@@ -308,19 +321,19 @@ def convert():
         if len(keys) != 0:
           for k in keys:
             if k == 'orgNm':
-              orgNm_all += child.attrib[k] + ','
+              orgNm_all += child.attrib[k] + ',\n'
               print(f'{k}: {child.attrib[k]}\n')
 
             elif k == 'orgPK':
-              orgPK_all += child.attrib[k] + ','
+              orgPK_all += child.attrib[k] + ',\n'
               print(f'{k}: {child.attrib[k]}\n')
 
             elif k == 'regBeginDt':
-              regBeginDt_all += child.attrib[k] + ','
+              regBeginDt_all += child.attrib[k] + ',\n'
               print(f'{k}: {child.attrib[k]}\n')
 
             elif k == 'regEndDt':
-              regEndDt_all += child.attrib[k] + ','
+              regEndDt_all += child.attrib[k] + ',\n'
               print(f'{k}: {child.attrib[k]}\n')
 
         # Loop for PrevRgstn_branchloc Tag
@@ -341,11 +354,11 @@ def convert():
               if len(keys) != 0:
                 for k in keys:
                   if k == 'city':
-                    city_all += item.attrib[k] + ','
+                    city_all += item.attrib[k] + ',\n'
                     print(f'{k}: {item.attrib[k]}\n')
 
                   elif k == 'state':
-                    state_all += item.attrib[k] + ','
+                    state_all += item.attrib[k] + ',\n'
                     print(f'{k}: {item.attrib[k]}\n')
 
         else:
@@ -365,6 +378,56 @@ def convert():
       PrevRgstn_orgPK.append('None')
       PrevRgstn_regBeginDt.append('None')
       PrevRgstn_regEndDt.append('None')
+  
+    # Loop for PrevRgstns Tag
+    EmpHss = list(Indvl_child[6])
+
+    if len(EmpHss) != 0:
+      for child in EmpHss:
+        
+        keys = child.attrib.keys()
+
+        if len(keys) != 0:
+          for k in keys:
+            if k == 'fromDt':
+              EmpHs_fromDt_all += child.attrib[k] + ',\n'
+              print(f'{k}: {child.attrib[k]}\n')
+
+            elif k == 'toDt':
+              EmpHs_toDt_all += child.attrib[k] + ',\n'
+              print(f'{k}: {child.attrib[k]}\n')
+
+            elif k == 'orgNm':
+              EmpHs_orgNm_all += child.attrib[k] + ',\n'
+              print(f'{k}: {child.attrib[k]}\n')
+
+            elif k == 'city':
+              EmpHs_city_all += child.attrib[k] + ',\n'
+              print(f'{k}: {child.attrib[k]}\n')
+
+            elif k == 'state':
+              EmpHs_state_all += child.attrib[k] + ',\n'
+              print(f'{k}: {child.attrib[k]}\n')
+
+            # Check if attribute toDt exist
+            if 'toDt' in keys:
+              pass
+            else:
+              EmpHs_toDt_all += 'None,\n'
+              print(f'toDt : None \n')
+
+      EmpHs_fromDt.append(EmpHs_fromDt_all)
+      EmpHs_toDt.append(EmpHs_toDt_all)
+      EmpHs_orgNm.append(EmpHs_orgNm_all)
+      EmpHs_city.append(EmpHs_city_all)
+      EmpHs_state.append(EmpHs_state_all)
+
+    else:
+      EmpHs_fromDt.append('None')
+      EmpHs_toDt.append('None')
+      EmpHs_orgNm.append('None')
+      EmpHs_city.append('None')
+      EmpHs_state.append('None')
 
 
   time_end = datetime.datetime.now().replace(microsecond=0)
@@ -375,7 +438,7 @@ def convert():
   now = datetime.datetime.now().strftime('%Y%m%d-%Hh%M')
   print('Saving to a CSV file...')
 
-  data = {'lastNm': Info_lastNm, 'firstNm': Info_firstNm, 'midNm': Info_midNm, 'indvlPK': Info_indvlPK, 'actvAGReg': Info_actvAGReg, 'link': Info_link, 'OthrNm lastNm': OthrNm_lastNm, 'OthrNm firstNm': OthrNm_firstNm, 'CrntEmp orgNm': CrntEmp_orgNm, 'CrntEmp orgPK': CrntEmp_orgPK, 'CrntEmp str1': CrntEmp_str1, 'CrntEmp city': CrntEmp_city, 'CrntEmp state': CrntEmp_state, 'CrntEmp cntry': CrntEmp_cntry, 'CrntEmp postlCd': CrntEmp_postlCd, 'CrntRgstn regAuth': CrntRgstn_regAuth, 'CrntRgstn regCat': CrntRgstn_regCat, 'CrntRgstn st': CrntRgstn_st, 'CrntRgstn stDt': CrntRgstn_stDt, 'BrnchOfLoc str1': BrnchOfLoc_str1, 'BrnchOfLoc city': BrnchOfLoc_city, 'BrnchOfLoc state': BrnchOfLoc_state, 'BrnchOfLoc cntry': BrnchOfLoc_cntry, 'BrnchOfLoc postlCd': BrnchOfLoc_postlCd, 'exmCd': Exm_exmCd, 'exmNm': Exm_exmNm, 'exmDt': Exm_exmDt, 'dsgntnNm': Dsgntn_dsgntnNm, 'PrevRgstn_orgNm': PrevRgstn_orgNm, 'PrevRgstn orgPK': PrevRgstn_orgPK, 'PrevRgstn regBeginDt': PrevRgstn_regBeginDt, 'PrevRgstn regEndDt': PrevRgstn_regEndDt, 'PrevRgstn branchloc city': PrevRgstn_branchloc_city, 'PrevRgstn branchloc state': PrevRgstn_branchloc_state}
+  data = {'lastNm': Info_lastNm, 'firstNm': Info_firstNm, 'midNm': Info_midNm, 'indvlPK': Info_indvlPK, 'actvAGReg': Info_actvAGReg, 'link': Info_link, 'OthrNm lastNm': OthrNm_lastNm, 'OthrNm firstNm': OthrNm_firstNm, 'CrntEmp orgNm': CrntEmp_orgNm, 'CrntEmp orgPK': CrntEmp_orgPK, 'CrntEmp str1': CrntEmp_str1, 'CrntEmp city': CrntEmp_city, 'CrntEmp state': CrntEmp_state, 'CrntEmp cntry': CrntEmp_cntry, 'CrntEmp postlCd': CrntEmp_postlCd, 'CrntRgstn regAuth': CrntRgstn_regAuth, 'CrntRgstn regCat': CrntRgstn_regCat, 'CrntRgstn st': CrntRgstn_st, 'CrntRgstn stDt': CrntRgstn_stDt, 'BrnchOfLoc str1': BrnchOfLoc_str1, 'BrnchOfLoc city': BrnchOfLoc_city, 'BrnchOfLoc state': BrnchOfLoc_state, 'BrnchOfLoc cntry': BrnchOfLoc_cntry, 'BrnchOfLoc postlCd': BrnchOfLoc_postlCd, 'exmCd': Exm_exmCd, 'exmNm': Exm_exmNm, 'exmDt': Exm_exmDt, 'dsgntnNm': Dsgntn_dsgntnNm, 'PrevRgstn_orgNm': PrevRgstn_orgNm, 'PrevRgstn orgPK': PrevRgstn_orgPK, 'PrevRgstn regBeginDt': PrevRgstn_regBeginDt, 'PrevRgstn regEndDt': PrevRgstn_regEndDt, 'PrevRgstn branchloc city': PrevRgstn_branchloc_city, 'PrevRgstn branchloc state': PrevRgstn_branchloc_state, 'EmpHs fromDt': EmpHs_fromDt, 'EmpHs toDt': EmpHs_toDt, 'EmpHs orgNm': EmpHs_orgNm, 'EmpHs city': EmpHs_city, 'EmpHs state': EmpHs_state}
 
   df=pd.DataFrame(data=data)
   df.index+=1
