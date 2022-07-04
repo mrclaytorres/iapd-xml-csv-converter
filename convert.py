@@ -49,6 +49,9 @@ def convert():
   PrevRgstn_regBeginDt = []
   PrevRgstn_regEndDt = []
 
+  PrevRgstn_branchloc_city = []
+  PrevRgstn_branchloc_state = []
+
   # CrntRgstn variables
   regAuth_all = ''
   regCat_all = ''
@@ -72,6 +75,10 @@ def convert():
   orgPK_all = ''
   regBeginDt_all = ''
   regEndDt_all = ''
+
+  # PrevRgstn BrnchOfLoc variables
+  city_all = ''
+  state_all = ''
 
   tree=Xet.parse( 'sample.xml' )
   root=tree.getroot()
@@ -316,10 +323,42 @@ def convert():
               regEndDt_all += child.attrib[k] + ','
               print(f'{k}: {child.attrib[k]}\n')
 
+        # Loop for PrevRgstn_branchloc Tag
+        PrevRgstn_branchloc = list(child)
+
+        PrevRgstn_branchloc_nodes = list(PrevRgstn_branchloc)
+
+        if len(PrevRgstn_branchloc_nodes) != 0:
+
+          for node in PrevRgstn_branchloc_nodes:
+
+            items = list(node)
+
+            for item in items:
+            
+              keys = item.attrib.keys()
+
+              if len(keys) != 0:
+                for k in keys:
+                  if k == 'city':
+                    city_all += item.attrib[k] + ','
+                    print(f'{k}: {item.attrib[k]}\n')
+
+                  elif k == 'state':
+                    state_all += item.attrib[k] + ','
+                    print(f'{k}: {item.attrib[k]}\n')
+
+        else:
+          PrevRgstn_branchloc_city.append('None')
+          PrevRgstn_branchloc_state.append('None')
+
       PrevRgstn_orgNm.append(orgNm_all)
       PrevRgstn_orgPK.append(orgPK_all)
       PrevRgstn_regBeginDt.append(regBeginDt_all)
       PrevRgstn_regEndDt.append(regEndDt_all)
+
+      PrevRgstn_branchloc_city.append(city_all)
+      PrevRgstn_branchloc_state.append(state_all)
 
     else:
       PrevRgstn_orgNm.append('None')
@@ -336,7 +375,7 @@ def convert():
   now = datetime.datetime.now().strftime('%Y%m%d-%Hh%M')
   print('Saving to a CSV file...')
 
-  data = {'lastNm': Info_lastNm, 'firstNm': Info_firstNm, 'midNm': Info_midNm, 'indvlPK': Info_indvlPK, 'actvAGReg': Info_actvAGReg, 'link': Info_link, 'OthrNm lastNm': OthrNm_lastNm, 'OthrNm firstNm': OthrNm_firstNm, 'CrntEmp orgNm': CrntEmp_orgNm, 'CrntEmp orgPK': CrntEmp_orgPK, 'CrntEmp str1': CrntEmp_str1, 'CrntEmp city': CrntEmp_city, 'CrntEmp state': CrntEmp_state, 'CrntEmp cntry': CrntEmp_cntry, 'CrntEmp postlCd': CrntEmp_postlCd, 'CrntRgstn regAuth': CrntRgstn_regAuth, 'CrntRgstn regCat': CrntRgstn_regCat, 'CrntRgstn st': CrntRgstn_st, 'CrntRgstn stDt': CrntRgstn_stDt, 'BrnchOfLoc str1': BrnchOfLoc_str1, 'BrnchOfLoc city': BrnchOfLoc_city, 'BrnchOfLoc state': BrnchOfLoc_state, 'BrnchOfLoc cntry': BrnchOfLoc_cntry, 'BrnchOfLoc postlCd': BrnchOfLoc_postlCd, 'exmCd': Exm_exmCd, 'exmNm': Exm_exmNm, 'exmDt': Exm_exmDt, 'dsgntnNm': Dsgntn_dsgntnNm, 'PrevRgstn_orgNm': PrevRgstn_orgNm, 'PrevRgstn orgPK': PrevRgstn_orgPK, 'PrevRgstn regBeginDt': PrevRgstn_regBeginDt, 'PrevRgstn regEndDt': PrevRgstn_regEndDt}
+  data = {'lastNm': Info_lastNm, 'firstNm': Info_firstNm, 'midNm': Info_midNm, 'indvlPK': Info_indvlPK, 'actvAGReg': Info_actvAGReg, 'link': Info_link, 'OthrNm lastNm': OthrNm_lastNm, 'OthrNm firstNm': OthrNm_firstNm, 'CrntEmp orgNm': CrntEmp_orgNm, 'CrntEmp orgPK': CrntEmp_orgPK, 'CrntEmp str1': CrntEmp_str1, 'CrntEmp city': CrntEmp_city, 'CrntEmp state': CrntEmp_state, 'CrntEmp cntry': CrntEmp_cntry, 'CrntEmp postlCd': CrntEmp_postlCd, 'CrntRgstn regAuth': CrntRgstn_regAuth, 'CrntRgstn regCat': CrntRgstn_regCat, 'CrntRgstn st': CrntRgstn_st, 'CrntRgstn stDt': CrntRgstn_stDt, 'BrnchOfLoc str1': BrnchOfLoc_str1, 'BrnchOfLoc city': BrnchOfLoc_city, 'BrnchOfLoc state': BrnchOfLoc_state, 'BrnchOfLoc cntry': BrnchOfLoc_cntry, 'BrnchOfLoc postlCd': BrnchOfLoc_postlCd, 'exmCd': Exm_exmCd, 'exmNm': Exm_exmNm, 'exmDt': Exm_exmDt, 'dsgntnNm': Dsgntn_dsgntnNm, 'PrevRgstn_orgNm': PrevRgstn_orgNm, 'PrevRgstn orgPK': PrevRgstn_orgPK, 'PrevRgstn regBeginDt': PrevRgstn_regBeginDt, 'PrevRgstn regEndDt': PrevRgstn_regEndDt, 'PrevRgstn branchloc city': PrevRgstn_branchloc_city, 'PrevRgstn branchloc state': PrevRgstn_branchloc_state}
 
   df=pd.DataFrame(data=data)
   df.index+=1
